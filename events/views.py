@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 from .models import Event
+from .forms import VenueForm
 
 
 def all_events(requests):
@@ -12,6 +14,23 @@ def all_events(requests):
                   {
                       'event_list': event_list
                   })
+
+
+def add_venue(requests):
+    submitted = False
+
+    if requests.method == "POST":
+        form = VenueForm(requests.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/events/add_venue?sumitted=True')
+    else:
+        form = VenueForm
+        if 'sumitted' in requests.GET:
+            submitted = True
+
+    form = VenueForm
+    return render(requests, 'add_venue.html', {'form': form, 'submitted': submitted})
 
 
 def home(requests, year=datetime.now().year, month=datetime.now().strftime('%B')):

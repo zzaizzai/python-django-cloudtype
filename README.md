@@ -19,3 +19,18 @@ This project is licensed under the MIT license, Copyright (c) 2020 django-boiler
 
 
 https://port-0-python-django-cloudtype-1jmcjt27lb8wh0md.gksl2.cloudtype.app/
+
+
+```:version
+Django 3.1.13
+python 3.9
+```
+
+
+
+
+```
+cd python-django-cloudtype
+pip install -r requirements.txt
+python manage.py rynserver
+```

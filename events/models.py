@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class Venue(models.Model):
     name = models.CharField('Venue Name', max_length=100)
     address = models.CharField(max_length=255)
-    phone = models.CharField('Zip Code', max_length=100)
+    phone = models.CharField('phone number', max_length=100)
     web = models.URLField('Website Address')
     email_address = models.EmailField('Email')
 
