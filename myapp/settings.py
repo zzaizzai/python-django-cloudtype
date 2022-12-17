@@ -33,7 +33,6 @@ def get_env_variable(var_name):
     raise ImproperlyConfigured(error_msg)
 
 SECRET_KEY = get_env_variable('DJANGO_SECRET')
-# SECRET_KEY = "5xeuu%71e@wu=#f@^xs6fp0d$adc@c7dvk@8-gfb%0r@ynpe*-"
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
