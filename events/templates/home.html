@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div>
+    <center>
+        <br>
+
+        {{cal |safe}}
+
+        <br>
+
+        Now:
+        {{current_year}} / {{current_month}}
+        {{time}}
+
+
+    </center>
+</div>
+
+{% endblock %}
+
+

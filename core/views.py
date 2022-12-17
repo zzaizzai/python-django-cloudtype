@@ -2,12 +2,26 @@ from django.shortcuts import render, redirect
 from .models import Member
 from .forms import MemberForm
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 
 
 def index(request):
 
     all_members = Member.objects.all
     return render(request, 'core/index.html', {'all': all_members})
+
+
+def mypage(request):
+    return render(request, 'core/mypage.html')
+
+
+def login(request):
+    if request.method == "GET":
+        return render(request, 'core/login.html')
+    elif request.method == "POST":
+
+        
+        return render(request, 'core/login.html')
 
 
 def join(request):

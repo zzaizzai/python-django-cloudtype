@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<h4>Events</h4>
+{% for event in event_list %}
+<strong>{{event}}</strong>
+<ul>
+    <li>Date: {{ event.event_date }}</li>
+    <li>Venue: <a href="{{ event.venue.web }}">{{ event.venue }}</a></li>
+    <li>Manager: {{ event.manager }}</li>
+    <li>Description: {{ event.description }}</li>
+    <li>Attendees:{% for attendee in event.attendees.all %}
+        <br>{{attendee}} 
+        {%  endfor %}
+    </li>
+</ul>
+{% endfor %}
+
+
+{% endblock %}
