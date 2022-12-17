@@ -1,12 +1,21 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-	
-	<div>
-		<h3 class="info">
-			A Django project created with <a href="https://github.com/beingbiplov/django-boilerplate">django-boilerplate</a>
-			<div>hello bros</div>
-		</h3>
-	</div>
+
+<div>
+	<p>
+		{% for item in all %}
+
+		{{item.fname}} {{item.lname}}<br />
+		Email: {{item.email}} <br />
+		Email: {{item.age}}<br /><br />
+		<hr>
+
+		{% endfor %}
+	</p>
+
+
+
+</div>
 
 {% endblock %}
