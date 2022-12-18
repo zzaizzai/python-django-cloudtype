@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
-from .models import Event
+from .models import Event, Venue
 from .forms import VenueForm
 
 
@@ -14,6 +14,32 @@ def all_events(requests):
                   {
                       'event_list': event_list
                   })
+
+
+def search_venues(request):
+    if request.method == "POST":
+
+        searched = request.POST["searched"]
+        venues = Venue.objects.filter(name__contains=searched)
+        return render(request, "search_venues.html",
+                      {"searched": searched,
+                       "venues": venues})
+    else:
+        return render(request, "search_venues.html",
+                      {})
+
+
+def show_venue(requests, venue_id):
+    venue = Venue.objects.get(pk=venue_id)
+    print(venue)
+    return render(requests, "show_venue.html",
+                  {'venue': venue})
+
+
+def list_venues(requests):
+    venue_list = Venue.objects.all()
+    return render(requests, 'list_venues.html',
+                  {"venue_list": venue_list})
 
 
 def add_venue(requests):
