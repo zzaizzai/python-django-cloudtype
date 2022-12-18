@@ -1,19 +1,34 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 from .models import Event, Venue
-from .forms import VenueForm
+from .forms import VenueForm, EventForm
 
 
 def all_events(requests):
+
     event_list = Event.objects.all()
 
     return render(requests, 'event_list.html',
                   {
                       'event_list': event_list
                   })
+
+
+def update_venue(request, venue_id):
+
+    venue = Venue.objects.get(pk=venue_id)
+
+    form = VenueForm(request.POST or None, instance=venue)
+
+    if form.is_valid():
+        form.save()
+        return redirect('/events/list_venues')
+    return render(request, "update_venue.html",
+                  {"venue": venue,
+                   "form": form})
 
 
 def search_venues(request):
@@ -40,6 +55,23 @@ def list_venues(requests):
     venue_list = Venue.objects.all()
     return render(requests, 'list_venues.html',
                   {"venue_list": venue_list})
+
+
+def add_event(request):
+    submitted = False
+
+    if request.method == "POST":
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/events/add_event?sumitted=True')
+    else:
+        form = EventForm
+        if 'sumitted' in request.GET:
+            submitted = True
+
+    form = EventForm
+    return render(request, 'add_event.html', {'form': form, 'submitted': submitted})
 
 
 def add_venue(requests):
