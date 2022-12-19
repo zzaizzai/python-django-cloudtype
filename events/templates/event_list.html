@@ -11,9 +11,13 @@
     <li>Manager: {{ event.manager }}</li>
     <li>Description: {{ event.description }}</li>
     <li>Attendees:{% for attendee in event.attendees.all %}
-        <br>{{attendee}} 
-        {%  endfor %}
+        <br>{{attendee}}
+        {% endfor %}
     </li>
+    <div class="d-flex">
+        <div><a class="btn-sm btn btn-outline-secondary" href="{% url 'update_event' event.id %}">Update Event</a></div>
+        <div><a class="btn-sm btn btn-outline-danger" href="{% url 'delete_event' event.id %}">Delete Event</a></div>
+    </div>
 </ul>
 {% endfor %}
 
