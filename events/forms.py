@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from .models import Venue, Event
 
 
-class EventForm(ModelForm):
+class EventFormAdmin(ModelForm):
     class Meta:
         model = Event
         fields = ("name", 'event_date', 'venue',
@@ -25,6 +25,31 @@ class EventForm(ModelForm):
             'venue': forms.Select(attrs={'class': 'form-control', 'placeholder': 'venue'}),
             'manager': forms.Select(attrs={'class': 'form-control', 'placeholder': 'manager'}),
             
+            'attendees': forms.SelectMultiple(attrs={'class': 'form-control', 'placeholder': 'attendees'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'description'}),
+
+        }
+
+# User Event Form
+class EventForm(ModelForm):
+    class Meta:
+        model = Event
+        fields = ("name", 'event_date', 'venue',
+                 'attendees' , 'description')
+
+        labels = {
+            'name': '',
+            'event_date': 'YYYY-MM-DD HH:MM:SS',
+            'venue': 'Venue',
+            'attendees': 'Attendees',
+            'description': '',
+
+        }
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'name'}),
+            'event_date': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'event_date'}),
+            'venue': forms.Select(attrs={'class': 'form-control', 'placeholder': 'venue'}),
             'attendees': forms.SelectMultiple(attrs={'class': 'form-control', 'placeholder': 'attendees'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'description'}),
 

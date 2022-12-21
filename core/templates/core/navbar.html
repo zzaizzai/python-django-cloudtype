@@ -5,7 +5,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="/">Home </a>
             </li>
@@ -15,34 +15,59 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/mypage">Mypage</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/events/list_events">Events</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'list_venues' %}">List Venue</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'add_venue' %}">Add Venue</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'add_event' %}">add_event</a>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Venues
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="nav-link" href="{% url 'list_venues' %}">List Venue</a>
+                    <a class="nav-link" href="{% url 'add_venue' %}">Add Venue</a>
+                </div>
             </li>
 
 
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Events
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="nav-link" href="/events/list_events">Events</a>
+                    {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'add_event' %}">add_event</a>
+
+                    <a class="nav-link" href="{% url 'my_events' %}">My event</a>
+                    {% endif %}
+                </div>
+            </li>
+
+        </ul>
+
+        <ul class="navbar-nav px-2">
             {% if user.is_authenticated %}
-            
+
             <li class="nav-item active">
-                <a class="nav-link" href="{% url 'logout' %}">logout</a>
+                <a class="nav-link" href="{% url 'logout_user' %}">Logout</a>
             </li>
+
+
             {% else %}
             <li class="nav-item active">
-                <a class="nav-link" href="{% url 'login_user' %}">login</a>
+                <a class="nav-link" href="{% url 'register_user' %}">Register</a>
             </li>
+
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'login_user' %}">Login</a>
+            </li>
+
 
             {% endif %}
         </ul>
 
-        <form class="form-inline" method="POST" action="{% url 'search_venues' %}">{% csrf_token %}
+        <form class="form-inline " method="POST" action="{% url 'search_venues' %}">{% csrf_token %}
             <input class="form-control mr-sm-2" name="searched" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
